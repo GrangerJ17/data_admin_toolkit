@@ -1,0 +1,7 @@
+id,name,email,phone,signup_date, address
+1,john doe,john.doe@gmail.com,123-456-7890,01/02/23, 13 CHAPel Street
+2,Jane Smith,JaneSmith@GMAIL.com,(123) 456 7890,2023-02-01, 145 Kingston Rd
+3,alice johnson,alice.johnson@gmail,1234567890,Feb 1 2023, 172 Parramatta Rd.
+4,Bob Brown,,+1 123 456 7890,2023/02/01, 
+5,john doe,john.doe@gmail.com,123-456-7890,01/02/23, 12 glover street
+6,  emily davis  ,emily.davis@gmail.com, 123.456.7890, ,45 PERRY ST

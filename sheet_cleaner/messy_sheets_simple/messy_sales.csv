@@ -1,0 +1,6 @@
+order_id,customer,amount,currency,order_date
+1001,Acme Corp,1,200,USD,2023-01-15
+1002,acme corp,1200,usd,15/01/2023
+1003,Globex, ,USD,2023.01.16
+1004,Initech,950,USD,Jan 17 2023
+1005,Globex,950,USD,2023-01-16
