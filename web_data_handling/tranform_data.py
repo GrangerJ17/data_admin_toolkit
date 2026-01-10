@@ -1,5 +1,5 @@
 from selenium import webdriver
-from scraping_util import scroll_to_bottom, click_all_load_more
+from .scraping_util import *
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
@@ -9,14 +9,34 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
+import json
 import time
 
+def retrieve_from_script(driver, url: str, script_name: str, global_tags: list = [], timeout: int = 20):
+    driver.get(url)
+    time.sleep(5)
+    try:
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.ID, script_name)))
+        
+    except TimeoutException:
+        print(f"Timeout waiting for {script_name}") 
+
+    element = driver.find_element(By.ID, script_name).get_attribute('textContent')
+    json_element = decode_nested_json(element)
+
+
+    for tag in global_tags:
+        json_element = json_element[tag]
+
+    return json_element
 
 def fetch_html_with_js(driver, url, wait_for_selectors: list = None, timeout: int = 20, scroll: bool = False, button: list = None):
 
     driver.get(url)
 
     time.sleep(5)
+
 
     if wait_for_selectors:
         
@@ -78,16 +98,16 @@ def extract_fields( dom, selector_map: dict):
 
     return extracted_data
 
-def clean_data(extracted_data):
-
-    for k, v in extracted_data.items():
-        new_values = []
-        for value in v:
-            new_values.append(value.strip().lstrip().replace("\n", " "))
-
-        extracted_data[k] = new_values
-
-    return extracted_data
 
 
 
+
+
+'''
+"h2.residential-card__address-heading a"
+
+"span.property-price"
+
+"li.styles__Li-sc-xhfhyt-0.iMbEAF"
+
+'''

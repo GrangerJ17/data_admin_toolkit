@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
+import json
 
 def click_all_load_more(driver, button_selector, timeout=5):
     """
@@ -44,4 +45,17 @@ def scroll_to_bottom(driver, pause=1, max_scrolls=50):
     
     return last_height
 
+def decode_nested_json(obj):
+    if isinstance(obj, str):
+        try:
+            return decode_nested_json(json.loads(obj))
+        except json.JSONDecodeError:
+            return obj
 
+    if isinstance(obj, dict):
+        return {k: decode_nested_json(v) for k, v in obj.items()}
+
+    if isinstance(obj, list):
+        return [decode_nested_json(v) for v in obj]
+
+    return obj
