@@ -17,5 +17,5 @@ This project extracts rental property data from real estate websites, validates 
 
 ## Upcoming
 
-- **Semantic Search: Users search for the "vibe" of their ideal house, search vector database for a property description that is semantically similar to their wants
-- **Automated Notification System: Caches all user searches, notifies them if a new property added is something they might like
+- **Semantic Search**: Users search for the "vibe" of their ideal house, search vector database for a property description that is semantically similar to their wants
+- **Automated Notification System**: Saves all user searches, notifies them if a new property added is something they might like
