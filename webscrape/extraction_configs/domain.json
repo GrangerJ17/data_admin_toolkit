@@ -1,0 +1,51 @@
+{
+    "site": "domain.com.au",
+    "city": "Sydney",
+    "use_api": "false",
+    "from_script": "true",
+    "script_name": "__NEXT_DATA__",
+    "base_url": "https://www.domain.com.au/",
+    "target_property_type": ["rent/?suburb="],
+    "location_tags": "sydney-nsw-2000,pyrmont-nsw-2009,ultimo-nsw-2007,chippendale-nsw-2008,surry-hills-nsw-2010,newtown-nsw-2042,marrickville-nsw-2204",
+    "listing_card_selector": "a.address",
+    "global_tags": ["props", "pageProps"],
+    "fields": {
+      "id": {
+        "keys": ["componentProps","propertyId"],
+        "type": "id"
+      },
+      "title": {
+        "keys": ["layoutProps", "title"],
+        "type": "text"
+      },
+      "price": {
+        "keys": ["componentProps", "rootGraphQuery", "listingByIdV2", "priceDetails", "rawValues", "exactPriceV2"],
+        "type": "price"
+      },
+      "bedrooms": {
+        "keys": ["componentProps", "locationProfileCards", "profiles", 0, "propertyDetails", "bedrooms"],
+        "type": "int"
+      },
+      "bathrooms": {
+        "keys": ["componentProps", "locationProfileCards", "profiles", 0, "propertyDetails", "bathrooms"],
+        "type": "int"
+      },
+      "carspaces": {
+        "keys": ["componentProps", "locationProfileCards", "profiles", 0, "propertyDetails", "carspaces"],
+        "type": "int"
+      },
+      "property_type": {
+        "keys": ["componentProps", "locationProfileCards", "profiles", 0, "propertyDetails", "propertyType"],
+        "type": "int"
+      },
+      "description": {
+        "keys": ["componentProps", "description"],
+        "type": "text"
+      },
+      "address": {
+        "keys": ["layoutProps", "digitalData", "page", "pageInfo", "property", "address"],
+        "type": "text"
+      }
+    }
+  }
+  
