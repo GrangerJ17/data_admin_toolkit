@@ -1,7 +1,13 @@
 pipeline {
   agent any
 
-  agent any
+    environment {
+    WEBSCRAPER = "false"
+    VECTORISER = "false"
+    WEBSCRAPER_RUNNING = "false"
+    VERSION = ""
+  }
+
   stages {
     stage('Docker Debug') {
       steps {
@@ -14,16 +20,6 @@ pipeline {
         '''
       }
     }
-  }
-
-  environment {
-    WEBSCRAPER = "false"
-    VECTORISER = "false"
-    WEBSCRAPER_RUNNING = "false"
-    VERSION = ""
-  }
-
-  stages {
 
     stage('Checkout') {
       steps {
