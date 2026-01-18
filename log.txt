@@ -14,3 +14,26 @@ DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:49743
 DEBUG:urllib3.connectionpool:http://localhost:49743 "POST /session HTTP/1.1" 200 0
 DEBUG:selenium.webdriver.remote.remote_connection:Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"143.0.7499.193","chrome":{"chromedriverVersion":"143.0.7499.192 (be2c1f4fd451578a9ada68a0ac12d659362b44bf-refs/branch-heads/7499@{#4083})","userDataDir":"/var/folders/8n/0rt7plvd00x9ml038sp9_01h0000gn/T/.org.chromium.Chromium.scoped_dir.EGjzio"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:49773"},"goog:processID":44405,"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"mac","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"964bc8d0f0fa1f3b5fc78cc3b33f3109"}} | headers=HTTPHeaderDict({'Content-Length': '926', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
 DEBUG:selenium.webdriver.remote.remote_connection:Finished Request
+DEBUG:asyncio:Using selector: KqueueSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14831
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14831
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14831
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/known-good-versions-with-downloads.json HTTP/1.1" 200 125132
+INFO:WDM:WebDriver version 143.0.7499.192 selected
+INFO:WDM:Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/143.0.7499.192/mac-x64/chromedriver-mac-x64.zip
+INFO:WDM:About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/143.0.7499.192/mac-x64/chromedriver-mac-x64.zip
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://storage.googleapis.com:443 "GET /chrome-for-testing-public/143.0.7499.192/mac-x64/chromedriver-mac-x64.zip HTTP/1.1" 200 9389857
+INFO:WDM:Driver downloading response is 200
+DEBUG:asyncio:Using selector: KqueueSelector
+DEBUG:asyncio:Using selector: KqueueSelector
+DEBUG:asyncio:Using selector: KqueueSelector
+DEBUG:asyncio:Using selector: KqueueSelector
