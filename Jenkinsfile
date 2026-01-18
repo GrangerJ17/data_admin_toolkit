@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
           def exists = sh(
-            script: "sudo docker ps -a --filter name=webscraper --format '{{.Names}}'",
+            script: "docker ps -a --filter name=webscraper --format '{{.Names}}'",
             returnStdout: true
           ).trim()
 
