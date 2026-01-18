@@ -72,7 +72,7 @@ class TargetListing:
     def transform(self):
         data_df = pd.DataFrame([self.fields])
 
-        print(self.fields)
+   
 
         data_df["property_type"] = (
                 data_df["property_type"]

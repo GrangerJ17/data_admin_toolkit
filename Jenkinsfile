@@ -1,168 +1,139 @@
-// pipeline {
 pipeline {
 
-    agent any
+  agent any
 
-    stages {
-
-        stage('Run Docker Container') {
-
-            steps {
-
-                sh 'docker run --rm hello-world'
-
-            }
-
-        }
-
-    }
-
-}
-//   agent any
-
-//     environment {
-//     WEBSCRAPER = "false"
-//     VECTORISER = "false"
-//     WEBSCRAPER_RUNNING = "false"
-//     VERSION = ""
-//   }
+    environment {
+    WEBSCRAPER = "false"
+    VECTORISER = "false"
+    WEBSCRAPER_RUNNING = "false"
+    VERSION = ""
+  }
 
   
 
    
-//   stages {
-//      stage('Checkout') {
-//     steps {
-//         sh "git config --global --add safe.directory /var/jenkins_home/workspace/rental-search-mb_main"
-//         checkout scm
-//     }
-// }
-//     stage('Init Version') {
-//       steps {
-//         script {
-//           env.VERSION = sh(
-//             script: "git rev-parse --short HEAD",
-//             returnStdout: true
-//           ).trim()
-//         }
-//       }
-//     }
+  stages {
+     stage('Checkout') {
+    steps {
+        sh "git config --global --add safe.directory /var/jenkins_home/workspace/rental-search-mb_main"
+        checkout scm
+    }
+}
+    stage('Init Version') {
+      steps {
+        script {
+          env.VERSION = sh(
+            script: "git rev-parse --short HEAD",
+            returnStdout: true
+          ).trim()
+        }
+      }
+    }
 
+    stage('Test'){
+      sh "./components/run_tests.sh"
+    }
     
+    stage('Bootstrap Webscraper') {
+      steps {
+        script {
+          def exists = sh(
+            script: "docker ps -a --filter name=webscraper --format '{{.Names}}'",
+            returnStdout: true
+          ).trim()
 
-    
-//     stage('Docker Debug') {
-//       steps {
-//         sh '''
-//           whoami
-//           id
-//           groups
-//           ls -l /var/run/docker.sock
-//           docker ps
-//         '''
-//       }
-//     }
+          if (!exists) {
+            echo "Webscraper not found — bootstrapping"
 
-//     stage('Bootstrap Webscraper') {
-//       steps {
-//         script {
-//           def exists = sh(
-//             script: "docker ps -a --filter name=webscraper --format '{{.Names}}'",
-//             returnStdout: true
-//           ).trim()
+            sh '''
+              docker build -t webscraper:latest components/scraper/
+              docker run -d --name webscraper webscraper:latest 
+            '''
 
-//           if (!exists) {
-//             echo "Webscraper not found — bootstrapping"
+            echo "Bootstrap complete — stopping pipeline"
+            currentBuild.result = 'SUCCESS'
+            return
+          }
 
-//             sh '''
-//               docker build -t webscraper:latest
-//               docker run -d --name webscraper webscraper:latest
-//             '''
+          echo "Webscraper exists — continuing pipeline"
+        }
+      }
+    }
 
-//             echo "Bootstrap complete — stopping pipeline"
-//             currentBuild.result = 'SUCCESS'
-//             return
-//           }
+    stage('Detect Changes') {
+      steps {
+        script {
+          def filesChanged = sh(
+            script: '''
+              if [ -n "$CHANGE_ID" ]; then
+                git diff --name-only origin/main...HEAD
+              else
+                git diff --name-only HEAD~1 HEAD
+              fi
+            ''',
+            returnStdout: true
+          ).trim()
 
-//           echo "Webscraper exists — continuing pipeline"
-//         }
-//       }
-//     }
+          echo "Changed files:\n${filesChanged}"
 
-//     stage('Detect Changes') {
-//       steps {
-//         script {
-//           def filesChanged = sh(
-//             script: '''
-//               if [ -n "$CHANGE_ID" ]; then
-//                 git diff --name-only origin/main...HEAD
-//               else
-//                 git diff --name-only HEAD~1 HEAD
-//               fi
-//             ''',
-//             returnStdout: true
-//           ).trim()
+          if (filesChanged.contains("webscrape/")) {
+            env.WEBSCRAPER = "true"
+            echo "Pending update to webscraper"
+          }
 
-//           echo "Changed files:\n${filesChanged}"
+          if (filesChanged.contains("embedding_handling/")) {
+            env.VECTORISER = "true"
+            echo "Pending update to vectoriser"
+          }
+        }
+      }
+    }
 
-//           if (filesChanged.contains("webscrape/")) {
-//             env.WEBSCRAPER = "true"
-//             echo "Pending update to webscraper"
-//           }
+    // stage('Detect Runtime State') {
+    //   steps {
+    //     script {
+    //       def running = sh(
+    //         script: "docker ps --filter name=webscraper --format '{{.Names}}'",
+    //         returnStdout: true
+    //       ).trim()
 
-//           if (filesChanged.contains("embedding_handling/")) {
-//             env.VECTORISER = "true"
-//             echo "Pending update to vectoriser"
-//           }
-//         }
-//       }
-//     }
+    //       env.WEBSCRAPER_RUNNING = running.contains("webscraper") ? "true" : "false"
+    //     }
+    //   }
+    // }
 
-//     stage('Detect Runtime State') {
-//       steps {
-//         script {
-//           def running = sh(
-//             script: "docker ps --filter name=webscraper --format '{{.Names}}'",
-//             returnStdout: true
-//           ).trim()
+    // stage('Build Scraper') {
+    //   when {
+    //     allOf {
+    //       branch 'main'
+    //       anyOf {
+    //         expression { env.WEBSCRAPER == "true" }
+    //         expression { env.WEBSCRAPER_RUNNING == "false" }
+    //       }
+    //     }
+    //   }
+    //   steps {
+    //     sh "docker build -t webscraper:${env.VERSION} webscrape/"
+    //   }
+    // }
 
-//           env.WEBSCRAPER_RUNNING = running.contains("webscraper") ? "true" : "false"
-//         }
-//       }
-//     }
-
-//     stage('Build Scraper') {
-//       when {
-//         allOf {
-//           branch 'main'
-//           anyOf {
-//             expression { env.WEBSCRAPER == "true" }
-//             expression { env.WEBSCRAPER_RUNNING == "false" }
-//           }
-//         }
-//       }
-//       steps {
-//         sh "docker build -t webscraper:${env.VERSION} webscrape/"
-//       }
-//     }
-
-//     stage('Run Scraper Container') {
-//       when {
-//         allOf {
-//           branch 'main'
-//           anyOf {
-//             expression { env.WEBSCRAPER == "true" }
-//             expression { env.WEBSCRAPER_RUNNING == "false" }
-//           }
-//         }
-//       }
-//       steps {
-//         sh '''
-//           docker stop webscraper || true
-//           docker rm webscraper || true
-//           docker run -d --name webscraper webscraper:${VERSION}
-//         '''
-//       }
-//     }
-//   }
-// }
+    // stage('Run Scraper Container') {
+    //   when {
+    //     allOf {
+    //       branch 'main'
+    //       anyOf {
+    //         expression { env.WEBSCRAPER == "true" }
+    //         expression { env.WEBSCRAPER_RUNNING == "false" }
+    //       }
+    //     }
+    //   }
+    //   steps {
+    //     sh '''
+    //       docker stop webscraper || true
+    //       docker rm webscraper || true
+    //       docker run -d --name webscraper webscraper:${VERSION}
+    //     '''
+    //   }
+    // }
+  }
+}
