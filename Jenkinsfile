@@ -15,7 +15,6 @@ pipeline {
   stages {
      stage('Checkout') {
     steps {
-        sh "git config --global --add safe.directory /var/jenkins_home/workspace/rental-search-mb_main"
         checkout scm
     }
 }
@@ -31,34 +30,38 @@ pipeline {
     }
 
     stage('Test'){
-      sh "./components/run_tests.sh"
-    }
-    
-    stage('Bootstrap Webscraper') {
-      steps {
-        script {
-          def exists = sh(
-            script: "docker ps -a --filter name=webscraper --format '{{.Names}}'",
-            returnStdout: true
-          ).trim()
-
-          if (!exists) {
-            echo "Webscraper not found — bootstrapping"
-
-            sh '''
-              docker build -t webscraper:latest components/scraper/
-              docker run -d --name webscraper webscraper:latest 
-            '''
-
-            echo "Bootstrap complete — stopping pipeline"
-            currentBuild.result = 'SUCCESS'
-            return
-          }
-
-          echo "Webscraper exists — continuing pipeline"
-        }
+      steps{
+        sh "echo Testing scraper logic"
+        sh "ls components/scraper/scraper_tests/"
+        sh "python3 components/scraper/scraper_tests/test_listings.py"
       }
     }
+    
+    // stage('Bootstrap Webscraper') {
+    //   steps {
+    //     script {
+    //       def exists = sh(
+    //         script: "docker ps -a --filter name=webscraper --format '{{.Names}}'",
+    //         returnStdout: true
+    //       ).trim()
+
+    //       if (!exists) {
+    //         echo "Webscraper not found — bootstrapping"
+
+    //         sh '''
+    //           docker build -t webscraper:latest components/scraper/
+    //           docker run -d --name webscraper webscraper:latest 
+    //         '''
+
+    //         echo "Bootstrap complete — stopping pipeline"
+    //         currentBuild.result = 'SUCCESS'
+    //         return
+    //       }
+
+    //       echo "Webscraper exists — continuing pipeline"
+    //     }
+    //   }
+    // }
 
     stage('Detect Changes') {
       steps {
