@@ -12,6 +12,11 @@ pipeline {
 
    
   stages {
+     stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
     stage('Init Version') {
       steps {
         script {
@@ -23,11 +28,7 @@ pipeline {
       }
     }
 
-     stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
+    
 
     
     stage('Docker Debug') {
