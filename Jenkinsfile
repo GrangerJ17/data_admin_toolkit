@@ -13,10 +13,11 @@ pipeline {
    
   stages {
      stage('Checkout') {
-      steps {
+    steps {
+        sh "git config --global --add safe.directory /var/jenkins_home/workspace/rental-search-mb_main"
         checkout scm
-      }
     }
+}
     stage('Init Version') {
       steps {
         script {
