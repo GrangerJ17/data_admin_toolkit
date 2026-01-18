@@ -8,24 +8,9 @@ pipeline {
     VERSION = ""
   }
 
-  stages {
-    stage('Docker Debug') {
-      steps {
-        sh '''
-          whoami
-          id
-          groups
-          ls -l /var/run/docker.sock
-          docker ps
-        '''
-      }
-    }
+  
 
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
+   
 
     stage('Init Version') {
       steps {
@@ -35,6 +20,25 @@ pipeline {
             returnStdout: true
           ).trim()
         }
+      }
+    }
+
+     stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stages {
+    stage('Docker Debug') {
+      steps {
+        sh '''
+          whoami
+          id
+          groups
+          ls -l /var/run/docker.sock
+          docker ps
+        '''
       }
     }
 
