@@ -11,7 +11,7 @@ pipeline {
   
 
    
-
+  stages {
     stage('Init Version') {
       steps {
         script {
@@ -29,7 +29,7 @@ pipeline {
       }
     }
 
-    stages {
+    
     stage('Docker Debug') {
       steps {
         sh '''
