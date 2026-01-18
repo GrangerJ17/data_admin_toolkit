@@ -1,6 +1,21 @@
 pipeline {
   agent any
 
+  agent any
+  stages {
+    stage('Docker Debug') {
+      steps {
+        sh '''
+          whoami
+          id
+          groups
+          ls -l /var/run/docker.sock
+          docker ps
+        '''
+      }
+    }
+  }
+
   environment {
     WEBSCRAPER = "false"
     VECTORISER = "false"
