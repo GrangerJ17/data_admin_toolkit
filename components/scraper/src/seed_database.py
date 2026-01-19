@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 import subprocess
 import sys
-from scraper.src.database_logic import PropertyDatabase
+from components.scraper.src.database_logic import PropertyDatabase
 import sqlalchemy as sa
 from sqlalchemy import create_engine, inspect
 import sqlite3
