@@ -27,22 +27,17 @@ pipeline {
             }
         }
 
-        stage('Configure Python venv') {
-            steps {
-               sh """
-                python3 -m venv components/scraper/venv
-                . components/scraper/venv/bin/activate
-                pip install -r components/scraper/requirements.txt
-                """
-                // Deactivate venv and make new one for vectoriser if needed
-            }
-        }
+       
 
         stage('Test') {
             steps {
-                sh "echo Testing scraper logic"
-                sh "ls components/scraper/scraper_tests/"
-                sh "python3 components/scraper/scraper_tests/test_listings.py"
+                 sh """
+                  python3 -m venv components/scraper/venv
+                  . components/scraper/venv/bin/activate
+                  pip install -r components/scraper/requirements.txt
+                  ls components/scraper/scraper_tests/
+                  python components/scraper/scraper_tests/test_listings.py
+                  """
             }
         }
 
