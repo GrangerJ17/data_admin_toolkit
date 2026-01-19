@@ -1,142 +1,113 @@
 pipeline {
-
-  agent any
+    agent any
 
     environment {
-    WEBSCRAPER = "false"
-    VECTORISER = "false"
-    WEBSCRAPER_RUNNING = "false"
-    VERSION = ""
-  }
-
-  
-
-   
-  stages {
-     stage('Checkout') {
-    steps {
-        checkout scm
+        WEBSCRAPER = "false"
+        VECTORISER = "false"
+        WEBSCRAPER_RUNNING = "false"
+        VERSION = ""
     }
-}
-    stage('Init Version') {
-      steps {
-        script {
-          env.VERSION = sh(
-            script: "git rev-parse --short HEAD",
-            returnStdout: true
-          ).trim()
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
         }
-      }
-    }
 
-    stage('Test'){
-      steps{
-        sh "echo Testing scraper logic"
-        sh "ls components/scraper/scraper_tests/"
-        sh "python3 components/scraper/scraper_tests/test_listings.py"
-      }
-    }
-    
-    // stage('Bootstrap Webscraper') {
-    //   steps {
-    //     script {
-    //       def exists = sh(
-    //         script: "docker ps -a --filter name=webscraper --format '{{.Names}}'",
-    //         returnStdout: true
-    //       ).trim()
-
-    //       if (!exists) {
-    //         echo "Webscraper not found — bootstrapping"
-
-    //         sh '''
-    //           docker build -t webscraper:latest components/scraper/
-    //           docker run -d --name webscraper webscraper:latest 
-    //         '''
-
-    //         echo "Bootstrap complete — stopping pipeline"
-    //         currentBuild.result = 'SUCCESS'
-    //         return
-    //       }
-
-    //       echo "Webscraper exists — continuing pipeline"
-    //     }
-    //   }
-    // }
-
-    stage('Detect Changes') {
-      steps {
-        script {
-          def filesChanged = sh(
-            script: '''
-              if [ -n "$CHANGE_ID" ]; then
-                git diff --name-only origin/main...HEAD
-              else
-                git diff --name-only HEAD~1 HEAD
-              fi
-            ''',
-            returnStdout: true
-          ).trim()
-
-          echo "Changed files:\n${filesChanged}"
-
-          if (filesChanged.contains("webscrape/")) {
-            env.WEBSCRAPER = "true"
-            echo "Pending update to webscraper"
-          }
-
-          if (filesChanged.contains("embedding_handling/")) {
-            env.VECTORISER = "true"
-            echo "Pending update to vectoriser"
-          }
+        stage('Init Version') {
+            steps {
+                script {
+                    env.VERSION = sh(
+                        script: "git rev-parse --short HEAD",
+                        returnStdout: true
+                    ).trim()
+                }
+            }
         }
-      }
-    }
 
-    // stage('Detect Runtime State') {
-    //   steps {
-    //     script {
-    //       def running = sh(
-    //         script: "docker ps --filter name=webscraper --format '{{.Names}}'",
-    //         returnStdout: true
-    //       ).trim()
+        stage('Configure Python venv') {
+            steps {
+               sh """
+                python3 -m venv components/scraper/venv
+                . components/scraper/venv/bin/activate
+                pip install -r components/scraper/requirements.txt
+                """
+                // Deactivate venv and make new one for vectoriser if needed
+            }
+        }
 
-    //       env.WEBSCRAPER_RUNNING = running.contains("webscraper") ? "true" : "false"
-    //     }
-    //   }
-    // }
+        stage('Test') {
+            steps {
+                sh "echo Testing scraper logic"
+                sh "ls components/scraper/scraper_tests/"
+                sh "python3 components/scraper/scraper_tests/test_listings.py"
+            }
+        }
 
-    // stage('Build Scraper') {
-    //   when {
-    //     allOf {
-    //       branch 'main'
-    //       anyOf {
-    //         expression { env.WEBSCRAPER == "true" }
-    //         expression { env.WEBSCRAPER_RUNNING == "false" }
-    //       }
-    //     }
-    //   }
-    //   steps {
-    //     sh "docker build -t webscraper:${env.VERSION} webscrape/"
-    //   }
-    // }
+        stage('Detect Changes') {
+            steps {
+                script {
+                    def filesChanged = sh(
+                        script: '''
+                        if [ -n "$CHANGE_ID" ]; then
+                            git diff --name-only origin/main...HEAD
+                        else
+                            git diff --name-only HEAD~1 HEAD
+                        fi
+                        ''',
+                        returnStdout: true
+                    ).trim()
 
-    // stage('Run Scraper Container') {
-    //   when {
-    //     allOf {
-    //       branch 'main'
-    //       anyOf {
-    //         expression { env.WEBSCRAPER == "true" }
-    //         expression { env.WEBSCRAPER_RUNNING == "false" }
-    //       }
-    //     }
-    //   }
-    //   steps {
-    //     sh '''
-    //       docker stop webscraper || true
-    //       docker rm webscraper || true
-    //       docker run -d --name webscraper webscraper:${VERSION}
-    //     '''
-    //   }
-    // }
-  }
-}
+                    echo "Changed files:\n${filesChanged}"
+
+                    if (filesChanged.contains("webscrape/")) {
+                        env.WEBSCRAPER = "true"
+                        echo "Pending update to webscraper"
+                    }
+
+                    if (filesChanged.contains("embedding_handling/")) {
+                        env.VECTORISER = "true"
+                        echo "Pending update to vectoriser"
+                    }
+                }
+            }
+        }
+
+        stage('Schedule Scraper') {
+            when {
+                allOf {
+                    branch 'main'
+                    expression { env.WEBSCRAPER == "true" }
+                }
+            }
+            steps {
+                script {
+                    sh '''
+                    VERSION=$(date +%Y%m%d%H%M%S)
+
+                    echo New version created: $VERSION
+
+                    mkdir -p /home/james/scripts/scraper/versions/$VERSION
+
+                    echo New directory made: /home/james/scripts/scraper/versions/$VERSION 
+
+                    cp -r components/scraper/* /home/james/scripts/scraper/versions/$VERSION/ 
+
+                    echo Copied contents of repo to new directory
+
+                    # Stop previous run if running
+                    pkill -f /home/james/scripts/scraper/current/src/seed_database.py || true
+
+                    # Atomically update 'current' symlink
+                    ln -sfn /home/james/scripts/scraper/versions/$VERSION /home/james/scripts/scraper/current
+
+                    echo New link created
+                    '''
+                }
+            }
+        }
+
+    } // end stages
+} // end pipeline
