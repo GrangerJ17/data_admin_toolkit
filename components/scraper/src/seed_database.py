@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 import subprocess
 import sys
-from components.scraper.src.database_logic import PropertyDatabase
+from database_logic import PropertyDatabase
 import sqlalchemy as sa
 from sqlalchemy import create_engine, inspect
 import sqlite3
@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import asyncio
-from web_data_handling.scraping_util import *
+from scraper.src.scraping_util import *
 from dotenv import load_dotenv
 import os
 

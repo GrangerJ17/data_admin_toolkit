@@ -36,7 +36,7 @@ pipeline {
                   . components/scraper/venv/bin/activate
                   pip install -r components/scraper/requirements.txt
                   ls components/scraper/scraper_tests/
-                  python components/scraper/scraper_tests/test_listings.py
+                  components/scraper/venv/bin/python -m components.scraper.scraper_tests.test_listings
                   """
             }
         }

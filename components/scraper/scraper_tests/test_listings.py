@@ -8,7 +8,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 print(str(Path(__file__).parent.parent))
 
-from src.seed_database import TargetListing
+from scraper.src.seed_database import TargetListing
 
 def test_target_listing_initialization():
     """Test that TargetListing initializes correctly"""
