@@ -32,7 +32,7 @@ pipeline {
         stage('Test') {
             steps {
                  sh """
-                  
+                 python3 -m venv components/scraper/venv 
                   . components/scraper/venv/bin/activate
                   pip install -r components/scraper/requirements.txt
                   ls components/scraper/scraper_tests/
