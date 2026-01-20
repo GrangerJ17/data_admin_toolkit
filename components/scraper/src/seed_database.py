@@ -29,8 +29,8 @@ from dotenv import load_dotenv
 
 import os
 
-logger = logging.getLogger(__name__)
-logging.basicConfig(filename="log.txt", encoding="utf-8", level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
+# logging.basicConfig(filename="log.txt", encoding="utf-8", level=logging.DEBUG)
 
 class TargetListing:
     def __init__(self, config: dict):
@@ -149,7 +149,7 @@ def load_config(file_path):
 
     return config_file
 
-async def extract_listing_pages(driver, links, config):
+def extract_listing_pages(driver, links, config):
     all_listings = []
     
     for link in links:
@@ -230,12 +230,7 @@ async def main():
 
     print(target_urls)
 
-   target_links = {
-        print(site)    site: await extract_listing_pages(driver=driver, links=target_urls, config=config) 
-        for site, config in config_objs.items()
-
-    
-    }
+    target_links = {site: extract_listing_pages(driver=driver, links=target_urls, config=config) for site, config in config_objs.items()}
 
 
     print(target_links)
