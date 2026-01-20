@@ -8,7 +8,7 @@ import sys
 from src.database_logic import PropertyDatabase
 import sqlalchemy as sa
 from sqlalchemy import create_engine, inspect
-import sqlite3
+from selenium import webdriver
 from pathlib import Path
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -23,6 +23,10 @@ import time
 import asyncio
 from src.scraping_util import *
 from dotenv import load_dotenv
+
+
+
+
 import os
 
 logger = logging.getLogger(__name__)
@@ -194,7 +198,7 @@ def _wait_for_element_clickable(driver, locator: tuple[str, str], timeout = 10):
 
 async def main():
     db = PropertyDatabase()
-    config_files = ["./extraction_configs/domain.json"]
+    config_files = ["./src/extraction_configs/domain.json"]
 
     config_objs = {}
 
@@ -203,28 +207,44 @@ async def main():
         config_objs[config_obj["site"]] = config_obj 
 
     
+    
+# Your options setup
     options = Options()
-    options.add_argument("--headless")
+    options.add_argument('--headless')  # if you want headless
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')  # Add this
+    options.add_argument('--remote-debugging-port=9222')
+    
+    print("lauching browser instance...")
+# Use webdriver-manager to automatically get the right version
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(options=options, service=service)
-    
-    
+    driver = webdriver.Chrome(service=service, options=options)    
+        
+    print("extracting target searches...")
     target_urls = [
         config["base_url"] + target + config["location_tags"] 
         for site, config in config_objs.items()
         for target in config["target_property_type"]
     ]
 
-    
-    target_links = {
-        site: await extract_listing_pages(driver=driver, links=target_urls, config=config) 
+    print(target_urls)
+
+   target_links = {
+        print(site)    site: await extract_listing_pages(driver=driver, links=target_urls, config=config) 
         for site, config in config_objs.items()
+
+    
     }
+
+
+    print(target_links)
 
     #TODO: (maybe) cache recently scraped links, if they appear again within a time frame, dont bother scraping
 
     for site, links in target_links.items():
         for link in links:
+            print("extracting for", link)
             try:
                 logger.info(f"Processing {link}")
                 config = copy.deepcopy(config_objs[site]) 

@@ -4,11 +4,9 @@ from datetime import datetime
 from pathlib import Path
 import chromadb
 from chromadb.config import Settings
-import sqlite3
 
 from scraper.src.database_logic import PropertyDatabase
 from vectoriser.src.vector_db_operations import store_embeddings, query_embeddings
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CHROMA_DIR = PROJECT_ROOT / "src" / "vector_database" / "chroma"
@@ -30,34 +28,35 @@ def get_collection(client, name: str):
 
 collection = get_collection(client, "embeddings_storage")
 
-
+# Postgres DB wrapper
 db = PropertyDatabase() 
-
 
 def embed_text(text: str):
     return model.encode(text).tolist()
 
-
 def main():
     properties_to_vectorise = []
 
-    # Fetch unvectorised properties from scrape_history
-    with sqlite3.connect(db.db_path) as conn:
-        conn.row_factory = sqlite3.Row
-        cur = conn.cursor()
+    # Use the existing Postgres connection
+    conn = db.connection
+    cur = conn.cursor()
 
-        cur.execute("SELECT * FROM scrape_history WHERE vectorised = 0")
-        results = [dict(row) for row in cur.fetchall()]
+    # Fetch unvectorised properties
+    cur.execute("SELECT * FROM scrape_history WHERE vectorised = 0")
+    results = cur.fetchall()
+    cur.execute("UPDATE scrape_history SET vectorised = 1 WHERE vectorised = 0")
+    if not results:
+        print("No unvectorised properties found.")
+        return
 
-        if not results:
-            print("No unvectorised properties found.")
-            return
-
-        for entry in results:
-            cur.execute("SELECT * FROM properties WHERE property_id = ?", (entry["property_id"],))
-            row = cur.fetchone()
-            if row:
-                properties_to_vectorise.append(dict(row))
+    for entry in results:
+        property_id = entry[0]  # adjust index based on your table structure
+        cur.execute("SELECT * FROM properties WHERE property_id = %s", (property_id,))
+        row = cur.fetchone()
+        if row:
+            # convert row to dict if needed
+            colnames = [desc[0] for desc in cur.description]
+            properties_to_vectorise.append(dict(zip(colnames, row)))
 
     if not properties_to_vectorise:
         print("No properties found to vectorise.")
@@ -72,15 +71,12 @@ def main():
     # Store in Chroma
     store_embeddings(collection, embedded_docs, descriptions, metadatas, ids)
 
-    # Mark properties as vectorised in SQLite
-    with sqlite3.connect(db.db_path) as conn:
-        cur = conn.cursor()
-        for pid in ids:
-            cur.execute("UPDATE scrape_history SET vectorised = 1 WHERE property_id = ?", (pid,))
-        conn.commit()
+    # Mark properties as vectorised in Postgres
+    for pid in ids:
+        cur.execute("UPDATE scrape_history SET vectorised = 1 WHERE property_id = %s", (pid,))
+    conn.commit()
 
     print(f"Vectorised and stored {len(ids)} properties.")
-
 
 def search_embeddings(query_texts: list, n_results: int = 2):
     return query_embeddings(collection, query_texts, model, n_results=n_results)
@@ -96,3 +92,4 @@ if __name__ == "__main__":
     print("Retrieved documents:", results['documents'])
     print("IDs:", results['ids'])
     print("Distances:", results['distances'])
+

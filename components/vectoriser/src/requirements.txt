@@ -1,0 +1,16 @@
+# NLP / Embeddings
+sentence-transformers==2.2.2
+torch>=2.0.1        # required by sentence-transformers, CPU or GPU version as needed
+
+# Vector database
+chromadb==0.4.9
+
+# PostgreSQL connection
+psycopg2==2.9.11
+
+# Utilities
+numpy>=1.25.0
+python-dateutil>=2.9.2
+
+# Optional but recommended
+tqdm>=4.65.0

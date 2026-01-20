@@ -1,0 +1,170 @@
+DEBUG:asyncio:Using selector: EpollSelector
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): chromedriver.storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://chromedriver.storage.googleapis.com:443 "GET /LATEST_RELEASE HTTP/1.1" 200 13
+INFO:WDM:About to download new driver from https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): chromedriver.storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://chromedriver.storage.googleapis.com:443 "GET /114.0.5735.90/chromedriver_linux64.zip HTTP/1.1" 200 7407250
+INFO:WDM:Driver downloading response is 200
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): chromedriver.storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://chromedriver.storage.googleapis.com:443 "GET /LATEST_RELEASE HTTP/1.1" 200 13
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): chromedriver.storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://chromedriver.storage.googleapis.com:443 "GET /LATEST_RELEASE HTTP/1.1" 200 13
+INFO:WDM:Driver has been saved in cache [/home/james/.wdm/drivers/chromedriver/linux64/114.0.5735.90]
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/114.0.5735.90/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/114.0.5735.90/chromedriver` in a child process with pid: 36238 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:58391/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:58391
+DEBUG:urllib3.connectionpool:http://localhost:58391 "POST /session HTTP/1.1" 500 0
+DEBUG:selenium.webdriver.remote.remote_connection:Remote response: status=500 | data={"value":{"error":"unknown error","message":"unknown error: cannot find Chrome binary","stacktrace":"#0 0x627257e7f4e3 \u003Cunknown>\n#1 0x627257baec76 \u003Cunknown>\n#2 0x627257bd5757 \u003Cunknown>\n#3 0x627257bd4029 \u003Cunknown>\n#4 0x627257c12ccc \u003Cunknown>\n#5 0x627257c1247f \u003Cunknown>\n#6 0x627257c09de3 \u003Cunknown>\n#7 0x627257bdf2dd \u003Cunknown>\n#8 0x627257be034e \u003Cunknown>\n#9 0x627257e3f3e4 \u003Cunknown>\n#10 0x627257e433d7 \u003Cunknown>\n#11 0x627257e4db20 \u003Cunknown>\n#12 0x627257e44023 \u003Cunknown>\n#13 0x627257e121aa \u003Cunknown>\n#14 0x627257e686b8 \u003Cunknown>\n#15 0x627257e68847 \u003Cunknown>\n#16 0x627257e78243 \u003Cunknown>\n#17 0x7c9ede49caa4 \u003Cunknown>\n#18 0x7c9ede529c6c \u003Cunknown>\n"}} | headers=HTTPHeaderDict({'Content-Length': '759', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+DEBUG:selenium.webdriver.remote.remote_connection:Finished Request
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:There is no [linux64] chromedriver "144.0.7559.31" for browser google-chrome "144.0.7559" in cache
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/known-good-versions-with-downloads.json HTTP/1.1" 200 125682
+INFO:WDM:WebDriver version 144.0.7559.31 selected
+INFO:WDM:Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/144.0.7559.31/linux64/chromedriver-linux64.zip
+INFO:WDM:About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/144.0.7559.31/linux64/chromedriver-linux64.zip
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://storage.googleapis.com:443 "GET /chrome-for-testing-public/144.0.7559.31/linux64/chromedriver-linux64.zip HTTP/1.1" 200 9718039
+INFO:WDM:Driver downloading response is 200
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver has been saved in cache [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31]
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 51786 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:51215/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:51215
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver] found in cache
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 52214 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:41951/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:41951
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:There is no [linux64] chromedriver "144.0.7559.31" for browser google-chrome "144.0.7559" in cache
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/known-good-versions-with-downloads.json HTTP/1.1" 200 125682
+INFO:WDM:WebDriver version 144.0.7559.31 selected
+INFO:WDM:Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/144.0.7559.31/linux64/chromedriver-linux64.zip
+INFO:WDM:About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/144.0.7559.31/linux64/chromedriver-linux64.zip
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): storage.googleapis.com:443
+DEBUG:urllib3.connectionpool:https://storage.googleapis.com:443 "GET /chrome-for-testing-public/144.0.7559.31/linux64/chromedriver-linux64.zip HTTP/1.1" 200 9718039
+INFO:WDM:Driver downloading response is 200
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver has been saved in cache [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31]
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 52436 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:44893/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:44893
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver] found in cache
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 52694 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:59289/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-debugging-port=9222']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:59289
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver] found in cache
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 53154 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:48925/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-debugging-port=9222']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:48925
+DEBUG:urllib3.connectionpool:http://localhost:48925 "POST /session HTTP/1.1" 200 0
+DEBUG:selenium.webdriver.remote.remote_connection:Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"144.0.7559.59","chrome":{"chromedriverVersion":"144.0.7559.31 (18537d992890dc68b11c8a4f748cad3c7df165c4-refs/branch-heads/7559@{#1444})","userDataDir":"/tmp/org.chromium.Chromium.scoped_dir.D750xn"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:9222"},"goog:processID":53160,"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"linux","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"18f9b0193b1ec4a7fdba4b4e600fccf0"}} | headers=HTTPHeaderDict({'Content-Length': '880', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+DEBUG:selenium.webdriver.remote.remote_connection:Finished Request
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:48925/session/18f9b0193b1ec4a7fdba4b4e600fccf0/url {'url': 'https://www.domain.com.au/rent/?suburb=sydney-nsw-2000,pyrmont-nsw-2009,ultimo-nsw-2007,chippendale-...'}
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver] found in cache
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 53438 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:55189/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-debugging-port=9222']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:55189
+DEBUG:urllib3.connectionpool:http://localhost:55189 "POST /session HTTP/1.1" 200 0
+DEBUG:selenium.webdriver.remote.remote_connection:Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"144.0.7559.59","chrome":{"chromedriverVersion":"144.0.7559.31 (18537d992890dc68b11c8a4f748cad3c7df165c4-refs/branch-heads/7559@{#1444})","userDataDir":"/tmp/org.chromium.Chromium.scoped_dir.m0tpWo"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:9222"},"goog:processID":53444,"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"linux","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"a4cb709465c43efa15cce41e8b113584"}} | headers=HTTPHeaderDict({'Content-Length': '880', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+DEBUG:selenium.webdriver.remote.remote_connection:Finished Request
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:55189/session/a4cb709465c43efa15cce41e8b113584/url {'url': 'https://www.domain.com.au/rent/?suburb=sydney-nsw-2000,pyrmont-nsw-2009,ultimo-nsw-2007,chippendale-...'}
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver] found in cache
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 53715 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:53173/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-debugging-port=9222']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:53173
+DEBUG:urllib3.connectionpool:http://localhost:53173 "POST /session HTTP/1.1" 200 0
+DEBUG:selenium.webdriver.remote.remote_connection:Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"144.0.7559.59","chrome":{"chromedriverVersion":"144.0.7559.31 (18537d992890dc68b11c8a4f748cad3c7df165c4-refs/branch-heads/7559@{#1444})","userDataDir":"/tmp/org.chromium.Chromium.scoped_dir.FBf6T1"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:9222"},"goog:processID":53721,"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"linux","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"234e22be149588940825da6ca5fd43b4"}} | headers=HTTPHeaderDict({'Content-Length': '880', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+DEBUG:selenium.webdriver.remote.remote_connection:Finished Request
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:53173/session/234e22be149588940825da6ca5fd43b4/url {'url': 'https://www.domain.com.au/rent/?suburb=sydney-nsw-2000,pyrmont-nsw-2009,ultimo-nsw-2007,chippendale-...'}
+DEBUG:asyncio:Using selector: EpollSelector
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): googlechromelabs.github.io:443
+DEBUG:urllib3.connectionpool:https://googlechromelabs.github.io:443 "GET /chrome-for-testing/latest-patch-versions-per-build.json HTTP/1.1" 200 14901
+INFO:WDM:Driver [/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver] found in cache
+DEBUG:selenium.webdriver.common.driver_finder:Skipping Selenium Manager; path to chrome driver specified in Service class: /home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver
+DEBUG:selenium.webdriver.common.service:Started executable: `/home/james/.wdm/drivers/chromedriver/linux64/144.0.7559.31/chromedriver-linux64/chromedriver` in a child process with pid: 53867 using 0 to output -3
+DEBUG:selenium.webdriver.remote.remote_connection:POST http://localhost:50683/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'extensions': [], 'args': ['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-debugging-port=9222']}}}}
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): localhost:50683
