@@ -24,13 +24,10 @@ import asyncio
 from src.scraping_util import *
 from dotenv import load_dotenv
 
-
-
-
 import os
 
-# logger = logging.getLogger(__name__)
-# logging.basicConfig(filename="log.txt", encoding="utf-8", level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename="log.txt", encoding="utf-8", level=logging.DEBUG)
 
 class TargetListing:
     def __init__(self, config: dict):
@@ -44,24 +41,22 @@ class TargetListing:
         self.job_url = url
         if self.config["from_script"] == "true":
             property_data = retrieve_from_script(driver=driver, url = url, script_name=self.config["script_name"], global_tags=self.config["global_tags"])
-
             for k,v in self.fields.items():
                 try:
                     target_fields = self.config["fields"][k]['keys']
-                    
                     nested_field = property_data[target_fields.pop(0)]
-
                     for key in target_fields:
-                        
+                        print("Curr key:", key)
                         nested_field = nested_field[key]
                         if isinstance(nested_field, str):
                             try:
                                 nested_field = json.loads(nested_field)
                                 
                             except json.JSONDecodeError:
+
                                 break
                 except KeyError as e:
-                    logger.error(f"Error: Key {e} not found in the following site schema: {property_data}")
+                    print(f"Error: Key {e} not found in the following site schema: {property_data}")
                     continue
 
                 self.fields[k] = nested_field
@@ -70,7 +65,6 @@ class TargetListing:
            self.fields["description"] = "".join(self.fields["description"])
 
 
-       
 
 
     def transform(self):
@@ -136,7 +130,6 @@ class TargetListing:
         }
         
         action = db.upsert_property(property_data, scrape_metadata)
-        logger.info(f"Property {property_data['id']} {action}")
         return action
 
 def load_config(file_path):
@@ -151,16 +144,13 @@ def load_config(file_path):
 
 def extract_listing_pages(driver, links, config):
     all_listings = []
-    
     for link in links:
         driver.get(link)
-        
         try:
             _wait_for_element_presence(driver=driver, locator=(By.CSS_SELECTOR, config["listing_card_selector"]))
         except TimeoutException:
-                print(f"Timeout waiting for listings on {link}")
                 continue
-            
+           
             # Get all property listing links directly
             # This avoids the carousel clones issue
         link_elements = driver.find_elements(By.CSS_SELECTOR, 'a.address')
@@ -208,57 +198,52 @@ async def main():
 
     
     
-# Your options setup
     options = Options()
-    options.add_argument('--headless')  # if you want headless
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-gpu')  # Add this
-    options.add_argument('--remote-debugging-port=9222')
-    
-    print("lauching browser instance...")
-# Use webdriver-manager to automatically get the right version
+    options.page_load_strategy = "eager"
+
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-background-networking")
+    options.add_argument("--disable-sync")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-default-apps")
+    options.add_argument("--disable-notifications") 
+    prefs = {"profile.managed_default_content_settings.images": 2}
+    options.add_experimental_option("prefs", prefs)
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)    
         
-    print("extracting target searches...")
     target_urls = [
         config["base_url"] + target + config["location_tags"] 
         for site, config in config_objs.items()
         for target in config["target_property_type"]
     ]
 
-    print(target_urls)
 
     target_links = {site: extract_listing_pages(driver=driver, links=target_urls, config=config) for site, config in config_objs.items()}
-
-
-    print(target_links)
 
     #TODO: (maybe) cache recently scraped links, if they appear again within a time frame, dont bother scraping
 
     for site, links in target_links.items():
         for link in links:
-            print("extracting for", link)
             try:
-                logger.info(f"Processing {link}")
+
                 config = copy.deepcopy(config_objs[site]) 
 
                 job = TargetListing(config=config)
 
                 job.scrape(driver=driver, url=link)
 
-                print(job.transform())
-
+                job.transform()
 
                 job.load(db)  
                 
             except Exception as e:
-                logger.error(f"Failed to process {link}: {e}")
+                print(f"Failed to process {link}: {e}")
                 continue
 
                     
-    
+   
     driver.quit()
 
 if __name__ == "__main__":
@@ -278,4 +263,4 @@ if __name__ == "__main__":
 
 
 
-
+          

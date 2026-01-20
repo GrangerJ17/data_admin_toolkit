@@ -12,11 +12,14 @@ import json
 import time
 
 def retrieve_from_script(driver, url: str, script_name: str, global_tags: list = [], timeout: int = 20):
+    print("retrieving from script")
     driver.get(url)
     time.sleep(5)
     try:
+        print("trying")
         WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, script_name)))
+        print("found\n")
 
     except TimeoutException:
         print(f"Timeout waiting for {script_name}") 
@@ -26,7 +29,10 @@ def retrieve_from_script(driver, url: str, script_name: str, global_tags: list =
 
 
     for tag in global_tags:
+        print(tag)
         json_element = json_element[tag]
+
+    return json_element
 
 def decode_nested_json(obj):
     if isinstance(obj, str):
