@@ -78,19 +78,19 @@ pipeline {
 
                     echo New version created: $VERSION
 
-                    mkdir -p /home/james/scripts/scraper/versions/$VERSION
+                    mkdir -p /mnt/scripts/scraper/versions/$VERSION
 
-                    echo New directory made: /home/james/scripts/scraper/versions/$VERSION 
+                    echo New directory made: /mnt/scripts/scraper/versions/$VERSION 
 
-                    cp -r components/scraper/* /home/james/scripts/scraper/versions/$VERSION/ 
+                    cp -r components/scraper/* /mnt/scripts/scraper/versions/$VERSION/ 
 
                     echo Copied contents of repo to new directory
 
                     # Stop previous run if running
-                    pkill -f /home/james/scripts/scraper/current/src/seed_database.py || true
+                    pkill -f /mnt/scripts/scraper/current/src/seed_database.py || true
 
                     # Atomically update 'current' symlink
-                    ln -sfn /home/james/scripts/scraper/versions/$VERSION /home/james/scripts/scraper/current
+                    ln -sfn /mnt/scripts/scraper/versions/$VERSION /home/james/scripts/scraper/current
 
                     echo New link created
                     '''
