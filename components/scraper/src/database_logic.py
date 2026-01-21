@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Ensure .env variables are loaded
 
-print(os.getenv("PGNAME"), os.getenv("PGUSER"), os.getenv("PGPASSWORD"))
       
 
 class PropertyDatabase:
