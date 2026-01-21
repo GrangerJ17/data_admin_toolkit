@@ -1,6 +1,6 @@
 # Real Estate Data Pipeline
 
-Still in development. An automated ETL pipeline for scraping, transforming, and storing real estate property listings with semantic search capabilities.
+Still in development. An automated ETL pipeline for scraping, transforming, and storing real estate property listings. Then you can use semantic search capabilities to search for your ideal property
 
 ## Overview
 
