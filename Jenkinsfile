@@ -71,12 +71,6 @@ pipeline {
         }
 
         stage('Schedule Scraper') {
-            when {
-                allOf {
-                    branch 'main'
-                    expression { env.WEBSCRAPER == "true" }
-                }
-            }
             steps {
                 script {
                     sh '''
