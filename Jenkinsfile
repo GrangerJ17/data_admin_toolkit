@@ -90,7 +90,7 @@ pipeline {
                     pkill -f /mnt/scripts/scraper/current/src/seed_database.py || true
 
                     # Atomically update 'current' symlink
-                    ln -sfn /mnt/scripts/scraper/versions/$VERSION /mnt/scripts/scraper/current
+                    ln -sfn /mnt/scripts/scraper/versions/$VERSION /mnt/scripts/current/scraper
 
                     echo New link created
                     '''

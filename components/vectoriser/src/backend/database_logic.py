@@ -14,7 +14,7 @@ class PropertyDatabase:
             user=os.getenv("PGUSER"),
             password=os.getenv("PGPASSWORD"),
             host="localhost",
-            port=5432
+            port=os.getenv("SYSPGPORT")
         )
         self.connection.autocommit = True
 
