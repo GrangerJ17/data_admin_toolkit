@@ -9,13 +9,13 @@ chromadb==0.4.9
 psycopg2==2.9.11
 
 # Utilities
-numpy>=1.25.0
-python-dateutil>=2.9.2
+numpy<2
+
 
 # Optional but recommended
 tqdm>=4.65.0
 
-fastapi[standard]
+fastapi
 uvicorn
 
 

@@ -34,3 +34,5 @@ def query_embeddings(collection, query_texts: list, model, n_results: int = 2):
     )
 
     return result
+
+

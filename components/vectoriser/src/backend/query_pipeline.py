@@ -5,6 +5,7 @@ import chromadb
 from chromadb.config import Settings
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 from vectoriser.src.backend.vectorise import *                                                                                                 
 from vectoriser.src.backend.database_logic import PropertyDatabase
@@ -45,7 +46,7 @@ def retrieve(term: str):
     response = {}
 
     
-    for field in property:
+    for field in relevant_properties:
         i = 0
         for value in property[field]:
             response[f"property_{i}"] = {
@@ -57,7 +58,8 @@ def retrieve(term: str):
     return response
                                                                                        
     
-
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=1704)
 
 
 
