@@ -33,7 +33,7 @@ collection = get_collection(get_client(), "embeddings_storage")
 db = PropertyDatabase() 
 
 def embed_text(text: str):
-    return model.encode(text).tolist()
+    return get_model().encode(text).tolist()
 
 def main():
     properties_to_vectorise = []
@@ -80,7 +80,7 @@ def main():
     print(f"Vectorised and stored {len(ids)} properties.")
 
 def search_embeddings(query_texts: list, n_results: int = 2):
-    return query_embeddings(collection, query_texts, model, n_results=n_results)
+    return query_embeddings(collection, query_texts, get_model(), n_results=n_results)
 
 
 if __name__ == "__main__":
