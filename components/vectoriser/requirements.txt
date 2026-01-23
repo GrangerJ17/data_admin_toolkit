@@ -14,3 +14,20 @@ python-dateutil>=2.9.2
 
 # Optional but recommended
 tqdm>=4.65.0
+
+fastapi[standard]
+uvicorn
+
+
+
+
+
+
+
+
+
+
+
+
+
+

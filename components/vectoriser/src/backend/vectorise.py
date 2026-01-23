@@ -5,29 +5,30 @@ from pathlib import Path
 import chromadb
 from chromadb.config import Settings
 
-from scraper.src.database_logic import PropertyDatabase
-from vectoriser.src.vector_db_operations import store_embeddings, query_embeddings
+from vectoriser.src.backend.database_logic import PropertyDatabase
+from vectoriser.src.backend.vector_db_operations import store_embeddings, query_embeddings
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-CHROMA_DIR = PROJECT_ROOT / "src" / "vector_database" / "chroma"
+CHROMA_DIR = PROJECT_ROOT / "src" / "backend" / "vector_database" / "chroma"
 
-print(PROJECT_ROOT)
-print(CHROMA_DIR)
+def get_model(model: str = "all-mpnet-base-v2"):
+    return SentenceTransformer(model)
 
-model = SentenceTransformer("all-mpnet-base-v2")
-
-client = chromadb.Client(
-    Settings(is_persistent=True, persist_directory=str(CHROMA_DIR))
-)
+def get_client():
+    return chromadb.Client(
+        Settings(is_persistent=True, persist_directory=str(CHROMA_DIR))
+    )
 
 def get_collection(client, name: str):
+
+    
     try:
+           
         return client.get_collection(name)
     except Exception:
         return client.create_collection(name)
 
-collection = get_collection(client, "embeddings_storage")
-
+collection = get_collection(get_client(), "embeddings_storage")    
 # Postgres DB wrapper
 db = PropertyDatabase() 
 
